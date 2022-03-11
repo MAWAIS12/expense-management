@@ -116,31 +116,28 @@
         const username = document.getElementById("SignUpName").value;
         const email = document.getElementById("SignUpEmail").value;
         const password = document.getElementById("SignUpPassword").value;
-        const confirmPassword =
-          document.getElementById("confirmPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
 
-        let checkVal = false;
+        let checkValUser = false;
         let checkValEmail = false;
-        // users.forEach(function (user) {
-        //   if (user.username === username) {
-        //     swal("Username Already Exists");
-        //     // console.log("error");
-        //     checkValUser = true;
-        //   }
-        //   if (user.email === email) {
-        //     swal("Email Already Exists");
-        //     checkValEmail = true;
-        //   }
-        // });
-        if (!checkVal && !checkValEmail) {
+        
+        if(users){
+        users.forEach(function (user) {
+          if (user.username == username) { 
+            swal("Username Already Exists");
+            // console.log("error");
+            checkValUser = true;
+          }
+          if (user.email == email) {
+            swal("Email Already Exists");
+            checkValEmail = true;
+          }
+        });
+        }
+        if (!checkValUser && !checkValEmail) {
           if (password === confirmPassword) {
             console.log(users);
-            if (
-              username == "" &&
-              email == "" &&
-              password == "" &&
-              confirmPassword == ""
-            ) {
+            if (username == "" || email == "" || password == "" || confirmPassword == "" ) {
               swal("Feilds are Empty");
             } else {
               console.log(users);
@@ -159,14 +156,22 @@
 
               localStorage.setItem("users", JSON.stringify(users));
               swal("Registration Successful");
-              // window.location.href = "./signin.html";
+
+              // username = "";
+              // email = "";
+              // password = "";
+              // confirmPassword = "";
+              
+              setTimeout(function(){
+                window.location.href = "./signin.html"; 
+              }, 1000);
             }
           } else {
-            swal("Confrim Password doesn't match your password.");
+            swal("Password and confirm password doesn't match.");
           }
-        } else {
-          swal("username and Email.");
-        }
+        }   else {
+          swal("username and Email Already Exists.");
+          }
       };
 
       const signUpBtn = document.getElementById("singUpBtn");

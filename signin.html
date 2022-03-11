@@ -101,6 +101,7 @@
           signInEmail,
           signInPassword,
         };
+        if(usersData){
         usersData.forEach((user) => {
           if (user.email == signInEmail) {
             if (user.password == signInPassword) {
@@ -109,14 +110,23 @@
                 JSON.stringify(authUsers)
               );
               swal("Sign in SuccessFully.");
+              setTimeout(function(){
+                window.location.href = "./index.html"; 
+              }, 1000);
             } else {
               swal("password is incorrect");
             }
           } else {
-            console.log("not a user.");
+            swal("not a user.");
           }
         });
-      };
+        }
+        else{
+          swal("not a user. Please Sign Up");
+        }
+      
+      }
+    
 
       const logInBtn = document.getElementById("logInBtn");
 
